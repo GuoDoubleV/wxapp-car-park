@@ -1,0 +1,231 @@
+<!--pages/payment/payment.wxml-->
+<view class="payment-page" bindtap="hideKeyboard">
+  <!-- 停车场信息 -->
+  <view class="parking-info">
+    <view class="parking-icon">P</view>
+    <view class="parking-details">
+      <view class="parking-name">{{parkingLot.name || '奥东十八'}}</view>
+      <view class="parking-address">{{parkingLot.address || '朝阳惠新西街安苑路18号'}}</view>
+    </view>
+  </view>
+
+
+  <!-- 车牌输入页面 -->
+  <view wx:if="{{pageMode === 'input-plate'}}" class="input-plate-content">
+    <!-- 车牌输入区域 -->
+    <view class="plate-input-card">
+      <view class="card-title">添加车牌</view>
+      
+      <!-- 车牌输入框 -->
+      <view class="plate-input-container">
+        <view 
+          class="plate-input-box {{currentInputIndex === 0 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="0"
+        >
+          {{plateNumber[0]}}
+        </view>
+        <view class="plate-separator">·</view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 1 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="1"
+        >
+          {{plateNumber[1]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 2 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="2"
+        >
+          {{plateNumber[2]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 3 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="3"
+        >
+          {{plateNumber[3]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 4 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="4"
+        >
+          {{plateNumber[4]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 5 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="5"
+        >
+          {{plateNumber[5]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 6 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="6"
+        >
+          {{plateNumber[6]}}
+        </view>
+        <view 
+          class="plate-input-box new-energy {{currentInputIndex === 7 ? 'active' : ''}} {{isNewEnergy ? 'enabled' : ''}}"
+          bindtap="onPlateInputClick"
+          data-index="7"
+        >
+          {{plateNumber[7]}}
+          <view class="new-energy-label" wx:if="{{isNewEnergy}}">新能源</view>
+        </view>
+      </view>
+
+      <!-- 去缴费按钮 -->
+      <button class="payment-btn" bindtap="goToPaymentFromInput">去缴费</button>
+    </view>
+
+    <!-- 底部服务链接 -->
+    <view class="service-links">
+      <view class="service-item" bindtap="vehicleManagement">
+        <text class="service-icon">🚗</text>
+        <text class="service-text">车辆管理</text>
+      </view>
+      <view class="service-item" bindtap="paymentRecords">
+        <view class="service-icon parking-icon-small">P</view>
+        <text class="service-text">缴费记录</text>
+      </view>
+      <view class="service-item" bindtap="paymentInstructions">
+        <text class="service-icon">ℹ</text>
+        <text class="service-text">缴费说明</text>
+      </view>
+    </view>
+
+    <!-- 虚拟键盘 -->
+    <view class="virtual-keyboard" wx:if="{{showKeyboard}}">
+      <!-- 省份键盘 -->
+      <view class="keyboard-row" wx:if="{{keyboardType === 'province'}}">
+        <view class="keyboard-row-inner">
+          <view 
+            class="keyboard-key"
+            wx:for="{{provinces}}"
+            wx:key="index"
+            bindtap="onKeyboardClick"
+            data-char="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 数字键盘 -->
+      <view class="keyboard-row" wx:if="{{keyboardType === 'number'}}">
+        <view class="keyboard-row-inner">
+          <view 
+            class="keyboard-key"
+            wx:for="{{numbers}}"
+            wx:key="index"
+            bindtap="onKeyboardClick"
+            data-char="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 字母键盘 -->
+      <view class="keyboard-row" wx:if="{{keyboardType === 'letter'}}">
+        <view class="keyboard-row-inner">
+          <view 
+            class="keyboard-key"
+            wx:for="{{letters}}"
+            wx:key="index"
+            bindtap="onKeyboardClick"
+            data-char="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 功能键行 -->
+      <view class="keyboard-function-row">
+
+        <view class="keyboard-key delete-key" bindtap="onKeyboardClick" data-char="delete">
+           <van-icon name="arrow-left" />
+           <van-icon name="cross" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 缴费页面 -->
+  <view wx:if="{{pageMode === 'payment'}}" class="payment-content">
+    <!-- 车辆信息卡片 -->
+    <view class="vehicle-card">
+      <view class="card-header">
+        <view class="switch-vehicle" bindtap="switchVehicle">
+          <text>切换车辆</text>
+          <text class="switch-icon">⇄</text>
+        </view>
+      </view>
+      
+      <view class="vehicle-info">
+        <view class="info-item">
+          <text class="info-label">车牌</text>
+          <view class="plate-number">{{vehicle.plateNumber}}</view>
+        </view>
+        <view class="info-item">
+          <text class="info-label">停车时长</text>
+          <text class="info-value">
+            {{parkingDuration.hours}}时{{parkingDuration.minutes}}分{{parkingDuration.seconds}}秒
+          </text>
+        </view>
+      </view>
+      
+      <view class="divider"></view>
+      
+      <view class="parking-details-info">
+        <view class="detail-item">
+          <text class="detail-label">停车场</text>
+          <text class="detail-value">{{vehicle.parkingLot}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">入场时间</text>
+          <text class="detail-value">{{vehicle.entryTime}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 费用信息卡片 -->
+    <view class="fee-card">
+      <view class="fee-item">
+        <text class="fee-label">停车费用</text>
+        <view class="fee-amount">¥ {{fee}}</view>
+      </view>
+    </view>
+
+    <!-- 支付倒计时 -->
+    <view class="countdown">
+      剩余支付时间: {{paymentCountdown.minutes.toString().padStart(2, '0')}}:{{paymentCountdown.seconds.toString().padStart(2, '0')}}
+    </view>
+
+    <!-- 支付按钮 -->
+    <view class="payment-btn-container">
+      <button class="payment-btn" bindtap="payNow">立即支付</button>
+    </view>
+
+    <!-- 底部导航 -->
+    <view class="bottom-nav">
+      <view class="nav-item" bindtap="vehicleManagement">
+        <text class="nav-item-icon">🚗</text>
+        <text class="nav-item-text">车辆管理</text>
+      </view>
+      <view class="nav-item" bindtap="paymentRecords">
+        <view class="nav-item-icon parking-icon-small">P</view>
+        <text class="nav-item-text">缴费记录</text>
+      </view>
+      <view class="nav-item" bindtap="paymentInstructions">
+        <text class="nav-item-icon">ℹ</text>
+        <text class="nav-item-text">缴费说明</text>
+      </view>
+    </view>
+  </view>
+</view>

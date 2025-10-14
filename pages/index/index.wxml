@@ -1,4 +1,15 @@
 <!--index.wxml-->
 <view class="container">
-  <vant-button type="primary">Click Me</vant-button>
+  <view class="welcome">
+    <text class="title">停车场小程序</text>
+    <text class="subtitle">欢迎使用停车缴费服务</text>
+  </view>
+  
+  <view class="action-buttons">
+    <button class="input-plate-btn" bindtap="goToInputPlate">输入车牌缴费</button>
+    <button class="payment-btn" bindtap="goToPayment">已有车牌缴费</button>
+    <button class="visitor-btn" bindtap="goToVisitorRegistration">访客登记</button>
+    <button class="vehicle-btn" bindtap="goToVehicleManagement">车辆管理</button>
+    <vant-button type="primary" size="large" bindtap="goToInputPlate">立即缴费</vant-button>
+  </view>
 </view>

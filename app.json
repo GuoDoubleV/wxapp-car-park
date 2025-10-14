@@ -1,6 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/payment/payment",
+    "pages/payment-records/payment-records",
+    "pages/invoice-form/invoice-form",
+    "pages/invoice-records/invoice-records",
+    "pages/visitor-registration/visitor-registration",
+    "pages/vehicle-management/vehicle-management",
     "pages/logs/logs"
   ],
   "window": {
@@ -11,5 +17,11 @@
   "style": "v2",
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index"
+  }
 }

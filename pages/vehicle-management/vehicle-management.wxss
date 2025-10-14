@@ -1,0 +1,288 @@
+/* pages/vehicle-management/vehicle-management.wxss */
+.vehicle-management-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 100rpx;
+}
+
+/* 顶部导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.nav-btn:last-child {
+  margin-right: 0;
+}
+
+.nav-icon {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 操作提示横幅 */
+.instruction-banner {
+  background-color: #ff6b6b;
+  padding: 20rpx 30rpx;
+  text-align: center;
+}
+
+.instruction-text {
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 车辆列表 */
+.vehicle-list {
+  padding: 20rpx 30rpx;
+}
+
+.vehicle-item {
+  position: relative;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  border-radius: 16rpx;
+}
+
+.vehicle-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.vehicle-item.swiping .vehicle-card {
+  transform: translateX(-160rpx);
+}
+
+.vehicle-info {
+  flex: 1;
+}
+
+.plate-number {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #8b4513;
+  margin-bottom: 8rpx;
+}
+
+.vehicle-status {
+  display: flex;
+  align-items: center;
+}
+
+.car-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-symbol {
+  font-size: 48rpx;
+  margin-right: 10rpx;
+}
+
+.status-dot {
+  position: absolute;
+  top: -5rpx;
+  right: -5rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  border: 2rpx solid #fff;
+}
+
+.status-dot.active {
+  background-color: #4caf50;
+}
+
+.status-dot.inactive {
+  background-color: #ccc;
+}
+
+/* 左滑操作按钮 */
+.swipe-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  z-index: 1;
+}
+
+.action-btn {
+  width: 80rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.action-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 30rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.add-first-btn {
+  width: 200rpx;
+  height: 80rpx;
+  background-color: #ff4757;
+  color: #fff;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.add-first-btn::after {
+  border: none;
+}
+
+.add-first-btn:active {
+  background-color: #ff3742;
+}
+
+/* 添加车辆浮动按钮 */
+.fab {
+  position: fixed;
+  bottom: 100rpx;
+  right: 30rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #ff4757;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(255, 71, 87, 0.4);
+  z-index: 100;
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.fab-icon {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 375px) {
+  .vehicle-card {
+    padding: 20rpx;
+  }
+
+  .plate-number {
+    font-size: 28rpx;
+  }
+
+  .car-symbol {
+    font-size: 40rpx;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.vehicle-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 滑动动画 */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.swipe-actions {
+  animation: slideIn 0.3s ease-out;
+}

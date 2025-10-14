@@ -1,0 +1,53 @@
+<!--pages/vehicle-management/vehicle-management.wxml-->
+<view class="vehicle-management-page">
+  <!-- 操作提示横幅 -->
+  <view class="instruction-banner">
+    <text class="instruction-text">左滑可删除车辆</text>
+  </view>
+
+  <!-- 车辆列表 -->
+  <view class="vehicle-list">
+    <view 
+      class="vehicle-item {{currentSwipeId === item.id ? 'swiping' : ''}}"
+      wx:for="{{vehicleList}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+    >
+      <!-- 车辆卡片 -->
+      <view class="vehicle-card" bindtap="onVehicleClick" data-id="{{item.id}}">
+        <view class="vehicle-info">
+          <view class="plate-number">{{item.plateNumber}}</view>
+        </view>
+        <view class="vehicle-status">
+          <view class="car-icon">
+            <text class="car-symbol">🚗</text>
+            <view class="status-dot {{item.isActive ? 'active' : 'inactive'}}"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 左滑操作按钮 -->
+      <view class="swipe-actions">
+        <view class="action-btn edit-btn" bindtap="editVehicle" data-id="{{item.id}}">
+          <text class="action-text">编辑</text>
+        </view>
+        <view class="action-btn delete-btn" bindtap="deleteVehicle" data-id="{{item.id}}">
+          <text class="action-text">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{vehicleList.length === 0}}">
+    <view class="empty-icon">🚗</view>
+    <view class="empty-text">暂无车辆</view>
+    <view class="empty-desc">点击右上角添加您的车辆</view>
+    <button class="add-first-btn" bindtap="addVehicle">添加第一辆车</button>
+  </view>
+
+  <!-- 添加车辆浮动按钮 -->
+  <view class="fab" bindtap="addVehicle">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

@@ -1,0 +1,99 @@
+<!--pages/payment-records/payment-records.wxml-->
+<view class="payment-records-page">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left">
+      <view class="nav-btn" bindtap="goBack">
+        <text class="nav-icon">←</text>
+      </view>
+      <view class="nav-btn" bindtap="goHome">
+        <text class="nav-icon">🏠</text>
+      </view>
+    </view>
+    <view class="nav-center">
+      <view class="nav-title">缴费记录</view>
+    </view>
+    <view class="nav-right">
+      <view class="nav-btn" bindtap="goToInvoiceRecords">
+        <text class="nav-icon">📄</text>
+      </view>
+      <view class="nav-btn" bindtap="showMoreOptions">
+        <text class="nav-icon">⋯</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已选择开票金额 -->
+  <view class="selected-amount">
+    已选择开票金额: ¥{{selectedAmount}}
+  </view>
+
+  <!-- 缴费记录列表 -->
+  <view class="records-list">
+    <view 
+      class="record-card {{selectedRecords.includes(item.id) ? 'selected' : ''}} {{item.isInvoiced ? 'invoiced' : ''}}"
+      wx:for="{{paymentRecords}}"
+      wx:key="id"
+      bindtap="onRecordSelect"
+      bindlongpress="onRecordLongPress"
+      data-id="{{item.id}}"
+    >
+      <!-- 选择框 -->
+      <view class="select-checkbox">
+        <view class="checkbox {{selectedRecords.includes(parseInt(item.id)) ? 'checked' : ''}} {{item.isInvoiced ? 'disabled' : ''}}">
+          <text class="check-icon" wx:if="{{selectedRecords.includes(parseInt(item.id))}}">✓</text>
+          <text class="disabled-icon" wx:if="{{item.isInvoiced}}">✕</text>
+        </view>
+      </view>
+
+
+      <!-- 记录内容 -->
+      <view class="record-content">
+        <!-- 车牌信息 -->
+        <view class="plate-info">
+          <view class="plate-label">车牌</view>
+          <view class="plate-number">{{item.plateNumber}}</view>
+
+        </view>
+
+        <!-- 停车详情 -->
+        <view class="parking-details">
+          <view class="detail-item">
+            <text class="detail-label">停车时长:</text>
+            <text class="detail-value">{{item.parkingDuration}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">缴费时间:</text>
+            <text class="detail-value">{{item.paymentTime}}</text>
+          </view>
+        </view>
+
+        <!-- 支付信息 -->
+        <view class="payment-info">
+          <view class="payment-method">{{item.paymentMethod}}</view>
+          <view class="payment-amount">¥ {{item.amount}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 底部开票按钮 -->
+  <view class="bottom-action">
+    <button 
+      class="invoice-btn {{selectedRecords.length > 0 ? 'active' : ''}}"
+      bindtap="openInvoice"
+      disabled="{{selectedRecords.length === 0}}"
+    >
+      填写开票信息
+    </button>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{paymentRecords.length === 0}}">
+    <view class="empty-icon">📄</view>
+    <view class="empty-text">暂无缴费记录</view>
+    <view class="empty-desc">您的停车缴费记录将在这里显示</view>
+  </view>
+
+</view>

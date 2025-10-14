@@ -1,0 +1,134 @@
+<!--pages/invoice-form/invoice-form.wxml-->
+<view class="invoice-form-page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="nav-bar">
+      <view class="nav-left" bindtap="goBack">
+        <view class="nav-btn">
+          <text class="nav-icon">←</text>
+        </view>
+      </view>
+      <view class="nav-title">填写开票信息</view>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 表单内容 -->
+  <scroll-view class="form-content" scroll-y>
+    <!-- 接收邮箱 -->
+    <view class="form-item">
+      <view class="form-label required">接收邮箱</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.recipientEmail}}"
+        data-field="recipientEmail"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 抬头类型 -->
+    <view class="form-item">
+      <view class="form-label required">抬头类型</view>
+      <radio-group class="radio-group" bindchange="onHeaderTypeChange">
+        <label class="radio-item">
+          <radio value="0" checked="{{invoiceForm.headerType === '企业'}}" />
+          <text>企业</text>
+        </label>
+        <label class="radio-item">
+          <radio value="1" checked="{{invoiceForm.headerType === '个人'}}" />
+          <text>个人</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 企业名称 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label required">企业名称</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.enterpriseName}}"
+        data-field="enterpriseName"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 企业税号 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label required">企业税号</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.enterpriseTaxId}}"
+        data-field="enterpriseTaxId"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 企业地址 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label">企业地址</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.enterpriseAddress}}"
+        data-field="enterpriseAddress"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 开户行 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label">开户行</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.openingBank}}"
+        data-field="openingBank"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 开户行账号 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label">开户行账号</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.bankAccountNumber}}"
+        data-field="bankAccountNumber"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 公司电话 -->
+    <view class="form-item" wx:if="{{invoiceForm.headerType === '企业'}}">
+      <view class="form-label">公司电话</view>
+      <input 
+        class="form-input" 
+        placeholder="请输入" 
+        value="{{invoiceForm.companyPhone}}"
+        data-field="companyPhone"
+        bindinput="onFormInput"
+      />
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-item">
+      <view class="form-label">备注</view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请输入" 
+        value="{{invoiceForm.remarks}}"
+        data-field="remarks"
+        bindinput="onFormInput"
+      />
+    </view>
+  </scroll-view>
+
+  <!-- 底部确认按钮 -->
+  <view class="bottom-action">
+    <button class="confirm-btn" bindtap="confirmInvoice">确认开票</button>
+  </view>
+</view>

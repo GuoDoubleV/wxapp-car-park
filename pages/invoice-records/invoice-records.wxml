@@ -1,0 +1,72 @@
+<!--pages/invoice-records/invoice-records.wxml-->
+<view class="invoice-records-page">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="goBack">
+      <view class="nav-btn">
+        <text class="nav-icon">←</text>
+      </view>
+    </view>
+    <view class="nav-center">
+      <view class="nav-title">开票记录</view>
+    </view>
+    <view class="nav-right">
+      <view class="nav-btn" bindtap="showMoreOptions">
+        <text class="nav-icon">⋯</text>
+      </view>
+      <view class="nav-btn" bindtap="showFilterOptions">
+        <text class="nav-icon">👁</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开票记录列表 -->
+  <view class="records-list">
+    <view 
+      class="record-card {{item.status === 'cancelled' ? 'cancelled' : ''}}"
+      wx:for="{{invoiceRecords}}"
+      wx:key="id"
+      bindtap="onRecordTap"
+      data-id="{{item.id}}"
+    >
+      <!-- 购方名称 -->
+      <view class="buyer-info">
+        <view class="buyer-label">购方名称</view>
+        <view class="buyer-name">{{item.buyerName}}</view>
+      </view>
+
+      <!-- 开票时间 -->
+      <view class="invoice-time">
+        <view class="time-label">开票时间</view>
+        <view class="time-value">{{item.invoiceTime}}</view>
+      </view>
+
+      <!-- 金额和状态 -->
+      <view class="amount-section">
+        <view class="amount {{item.status === 'cancelled' ? 'cancelled' : 'active'}}">
+          ¥{{item.amount}}
+        </view>
+        <view class="status {{item.status === 'cancelled' ? 'cancelled' : ''}}" wx:if="{{item.status === 'cancelled'}}">
+          已撤销
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-buttons" wx:if="{{item.status !== 'cancelled'}}">
+        <button class="action-btn cancel-btn" bindtap="cancelInvoice" data-id="{{item.id}}" catchtap="">
+          撤销开票
+        </button>
+        <button class="action-btn download-btn" bindtap="downloadInvoice" data-id="{{item.id}}" catchtap="">
+          下载发票
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{invoiceRecords.length === 0}}">
+    <view class="empty-icon">📄</view>
+    <view class="empty-text">暂无开票记录</view>
+    <view class="empty-desc">您的开票记录将在这里显示</view>
+  </view>
+</view>

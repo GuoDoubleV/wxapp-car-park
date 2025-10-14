@@ -1,0 +1,245 @@
+/* pages/invoice-records/invoice-records.wxss */
+.invoice-records-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.nav-btn:last-child {
+  margin-right: 0;
+}
+
+.nav-icon {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 开票记录列表 */
+.records-list {
+  padding: 20rpx 30rpx;
+}
+
+.record-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.record-card:active {
+  transform: scale(0.98);
+}
+
+.record-card.cancelled {
+  opacity: 0.6;
+  background-color: #f8f8f8;
+}
+
+/* 购方信息 */
+.buyer-info {
+  margin-bottom: 20rpx;
+}
+
+.buyer-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.buyer-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 开票时间 */
+.invoice-time {
+  margin-bottom: 20rpx;
+}
+
+.time-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.time-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 金额和状态 */
+.amount-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.amount {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.amount.active {
+  color: #ff4757;
+}
+
+.amount.cancelled {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.status {
+  font-size: 24rpx;
+  color: #999;
+  background-color: #f0f0f0;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.status.cancelled {
+  color: #999;
+  background-color: #f0f0f0;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 64rpx;
+  border: none;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.cancel-btn {
+  background-color: #f8f8f8;
+  color: #666;
+}
+
+.cancel-btn:active {
+  background-color: #e0e0e0;
+  transform: scale(0.98);
+}
+
+.download-btn {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.download-btn:active {
+  background-color: #e63946;
+  transform: scale(0.98);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 30rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 375px) {
+  .record-card {
+    padding: 20rpx;
+  }
+
+  .buyer-name {
+    font-size: 28rpx;
+  }
+
+  .amount {
+    font-size: 32rpx;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.record-card {
+  animation: fadeIn 0.3s ease-out;
+}

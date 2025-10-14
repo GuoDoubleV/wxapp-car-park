@@ -1,0 +1,401 @@
+/* pages/payment-records/payment-records.wxss */
+.payment-records-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.nav-btn:last-child {
+  margin-right: 0;
+}
+
+.nav-icon {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 已选择开票金额 */
+.selected-amount {
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  border-bottom: 1rpx solid #eee;
+  text-align: center;
+}
+
+/* 顶部导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.nav-btn:last-child {
+  margin-right: 0;
+}
+
+.nav-icon {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 缴费记录列表 */
+.records-list {
+  padding: 20rpx 30rpx;
+}
+
+.record-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.record-card.selected {
+  border: 2rpx solid #ff4757;
+  background-color: #fff5f5;
+}
+
+.record-card.invoiced {
+  opacity: 0.6;
+  background-color: #f8f8f8;
+}
+
+.record-card:active {
+  transform: scale(0.98);
+}
+
+/* 选择框 */
+.select-checkbox {
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+}
+
+.checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* 选中状态样式 */
+.checkbox.checked {
+  background-color: #ff4757;
+  border-color: #ff4757;
+}
+
+/* 禁用状态样式 */
+.checkbox.disabled {
+  background-color: #f0f0f0;
+  border-color: #d0d0d0;
+  cursor: not-allowed;
+}
+
+/* 选中状态下的勾选图标 */
+.checkbox.checked .check-icon {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: bold;
+  display: block;
+}
+
+/* 禁用状态下的叉号图标 */
+.checkbox.disabled .disabled-icon {
+  color: #999;
+  font-size: 20rpx;
+  font-weight: bold;
+  display: block;
+}
+
+/* 默认隐藏图标 */
+.check-icon,
+.disabled-icon {
+  display: none;
+}
+
+/* 记录内容 */
+.record-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 车牌信息 */
+.plate-info {
+  margin-bottom: 20rpx;
+}
+
+.plate-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.plate-number {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 停车详情 */
+.parking-details {
+  margin-bottom: 20rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 支付信息 */
+.payment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-method {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.payment-amount {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ff4757;
+}
+
+/* 全选操作栏 */
+.select-all-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1rpx solid #eee;
+  padding: 20rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.select-all-item {
+  display: flex;
+  align-items: center;
+}
+
+.select-all-text {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 10rpx;
+}
+
+.selected-count {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 底部开票按钮 */
+.bottom-action {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-top: 1rpx solid #eee;
+  padding: 20rpx 30rpx;
+  z-index: 100;
+}
+
+.invoice-btn {
+  width: 100%;
+  height: 88rpx;
+  background-color: #ccc;
+  color: #999;
+  border: none;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.invoice-btn.active {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.invoice-btn::after {
+  border: none;
+}
+
+.invoice-btn:active {
+  transform: scale(0.98);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 30rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 375px) {
+  .record-card {
+    padding: 20rpx;
+  }
+
+  .plate-number {
+    font-size: 28rpx;
+  }
+
+  .payment-amount {
+    font-size: 32rpx;
+  }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.record-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 加载状态 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+  margin-left: 10rpx;
+}

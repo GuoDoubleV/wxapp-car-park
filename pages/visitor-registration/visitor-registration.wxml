@@ -1,0 +1,161 @@
+<!--pages/visitor-registration/visitor-registration.wxml-->
+<view class="visitor-registration-page" bindtap="hideKeyboard">
+  <!-- 访客登记表单 -->
+  <view class="registration-form">
+    <view class="form-title">访客登记</view>
+    
+    <!-- 车牌输入区域 -->
+    <view class="plate-input-section">
+      <view class="plate-input-container">
+        <view 
+          class="plate-input-box {{currentInputIndex === 0 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="0"
+        >
+          {{plateNumber[0]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 1 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="1"
+        >
+          {{plateNumber[1]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 2 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="2"
+        >
+          {{plateNumber[2]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 3 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="3"
+        >
+          {{plateNumber[3]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 4 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="4"
+        >
+          {{plateNumber[4]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 5 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="5"
+        >
+          {{plateNumber[5]}}
+        </view>
+        <view 
+          class="plate-input-box {{currentInputIndex === 6 ? 'active' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="6"
+        >
+          {{plateNumber[6]}}
+        </view>
+        <view 
+          class="plate-input-box new-energy {{currentInputIndex === 7 ? 'active' : ''}} {{isNewEnergy ? 'enabled' : ''}}"
+          bindtap="onPlateInputClick"
+          catchtap="true"
+          data-index="7"
+        >
+          {{plateNumber[7]}}
+          <view class="new-energy-label" wx:if="{{isNewEnergy}}">新能源</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 来访日期 -->
+    <view class="date-section">
+      <view class="date-label">来访日期</view>
+      <picker mode="date" value="{{visitDate}}" bindchange="onDateChange">
+        <view class="date-picker">
+          <text class="date-value">{{visitDate}}</text>
+          <text class="date-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 确认登记按钮 -->
+    <button class="confirm-btn" bindtap="confirmRegistration">确认登记</button>
+  </view>
+
+  <!-- 停车信息展示 -->
+  <view class="parking-info">
+    <view class="info-left">
+      <view class="plate-number">{{parkingInfo.plateNumber}}</view>
+      <view class="parking-duration">停车时长: {{parkingInfo.parkingDuration}}</view>
+    </view>
+    <view class="info-right">
+      <view class="visit-date">来访日期: {{parkingInfo.visitDate}}</view>
+    </view>
+  </view>
+
+  <!-- 虚拟键盘 - 点击输入框时显示 -->
+  <view class="virtual-keyboard" wx:if="{{showKeyboard}}">
+    <!-- 省份键盘 -->
+    <view class="keyboard-row" wx:if="{{keyboardType === 'province'}}">
+      <view class="keyboard-row-inner">
+        <view 
+          class="keyboard-key"
+          wx:for="{{provinces}}"
+          wx:key="index"
+          bindtap="onKeyboardClick"
+          data-char="{{item}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 数字键盘 -->
+    <view class="keyboard-row" wx:if="{{keyboardType === 'number'}}">
+      <view class="keyboard-row-inner">
+        <view 
+          class="keyboard-key"
+          wx:for="{{numbers}}"
+          wx:key="index"
+          bindtap="onKeyboardClick"
+          data-char="{{item}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 字母键盘 -->
+    <view class="keyboard-row" wx:if="{{keyboardType === 'letter'}}">
+      <view class="keyboard-row-inner">
+        <view 
+          class="keyboard-key"
+          wx:for="{{letters}}"
+          wx:key="index"
+          bindtap="onKeyboardClick"
+          data-char="{{item}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 功能键行 -->
+    <view class="keyboard-function-row">
+      <view class="keyboard-key function-key" bindtap="onKeyboardClick" data-char="新能源">
+        <text class="new-energy-text">新能源</text>
+      </view>
+      <view class="keyboard-key delete-key" bindtap="onKeyboardClick" data-char="delete">
+        <text class="delete-icon">✕</text>
+      </view>
+    </view>
+  </view>
+</view>
