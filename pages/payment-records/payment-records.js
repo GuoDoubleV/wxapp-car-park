@@ -79,6 +79,19 @@ Page({
     this.loadPaymentRecords();
   },
 
+  // 更新计算属性
+  updateComputedProperties() {
+    // 更新每个记录的计算属性
+    const paymentRecords = this.data.paymentRecords.map((record) => ({
+      ...record,
+      isSelected: this.data.selectedRecords.includes(parseInt(record.id)),
+    }));
+
+    this.setData({
+      paymentRecords: paymentRecords,
+    });
+  },
+
   onShow() {
     // 页面显示时刷新数据
     this.refreshData();
@@ -89,6 +102,8 @@ Page({
     // 这里可以调用API获取数据
     // 目前使用模拟数据
     console.log("加载缴费记录数据");
+    // 初始化计算属性
+    this.updateComputedProperties();
   },
 
   // 刷新数据
@@ -282,6 +297,8 @@ Page({
 
     // 更新选中金额
     this.updateSelectedAmount();
+    // 更新计算属性
+    this.updateComputedProperties();
   },
 
   // 开票
@@ -385,9 +402,9 @@ Page({
     // 更新已开票的记录状态
     const updatedRecords = this.data.paymentRecords.map((record) => {
       if (selectedRecordIds.includes(record.id)) {
-        return { ...record, isInvoiced: true };
+        return { ...record, isInvoiced: true, isSelected: false };
       }
-      return record;
+      return { ...record, isSelected: false };
     });
 
     // 清空选择并更新数据

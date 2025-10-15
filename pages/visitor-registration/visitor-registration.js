@@ -128,16 +128,45 @@ Page({
   onPlateInputClick(e) {
     const index = e.currentTarget.dataset.index;
     console.log("点击输入框，索引:", index);
+    console.log("设置前 showKeyboard:", this.data.showKeyboard);
+
     this.setData({
       currentInputIndex: index,
       showKeyboard: true,
     });
+
+    console.log("设置后 showKeyboard:", this.data.showKeyboard);
     this.updateKeyboardType(index);
-    console.log("键盘状态:", this.data.showKeyboard);
   },
 
   // 隐藏键盘
-  hideKeyboard() {
+  hideKeyboard(e) {
+    console.log("隐藏键盘被调用");
+    console.log("e", e);
+
+    if (
+      e &&
+      e.target &&
+      e.target.dataset &&
+      e.target.dataset.index !== undefined
+    ) {
+      console.log("e.target.dataset.index", e.target.dataset.index);
+      // 如果点击的是输入框，不隐藏键盘
+      console.log("点击的是输入框，不隐藏键盘");
+      return;
+    }
+    // 检查是否点击了键盘区域
+    if (
+      e &&
+      e.target &&
+      e.target.className &&
+      (e.target.className.includes("keyboard-key") ||
+        e.target.className.includes("keyboard-row") ||
+        e.target.className.includes("virtual-keyboard"))
+    ) {
+      console.log("点击的是键盘区域，不隐藏键盘");
+      return;
+    }
     this.setData({
       showKeyboard: false,
     });
@@ -156,17 +185,19 @@ Page({
 
   // 更新键盘类型
   updateKeyboardType(index) {
+    console.log("更新键盘类型，索引:", index);
     let keyboardType = "province";
 
     if (index === 0) {
       keyboardType = "province"; // 第一位是省份
-    } else if (index === 1) {
+    } else if (index == 1) {
+      console.log("第二位是字母");
       keyboardType = "letter"; // 第二位是字母
     } else if (index >= 2 && index <= 5) {
       keyboardType = "number"; // 第3-6位是数字
-    } else if (index === 6) {
+    } else if (index == 6) {
       keyboardType = "letter"; // 第7位是字母
-    } else if (index === 7) {
+    } else if (index == 7) {
       keyboardType = "letter"; // 第8位是字母（新能源）
     }
 

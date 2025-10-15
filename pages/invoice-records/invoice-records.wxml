@@ -1,25 +1,5 @@
 <!--pages/invoice-records/invoice-records.wxml-->
 <view class="invoice-records-page">
-  <!-- 导航栏 -->
-  <view class="nav-bar">
-    <view class="nav-left" bindtap="goBack">
-      <view class="nav-btn">
-        <text class="nav-icon">←</text>
-      </view>
-    </view>
-    <view class="nav-center">
-      <view class="nav-title">开票记录</view>
-    </view>
-    <view class="nav-right">
-      <view class="nav-btn" bindtap="showMoreOptions">
-        <text class="nav-icon">⋯</text>
-      </view>
-      <view class="nav-btn" bindtap="showFilterOptions">
-        <text class="nav-icon">👁</text>
-      </view>
-    </view>
-  </view>
-
   <!-- 开票记录列表 -->
   <view class="records-list">
     <view 

@@ -10,6 +10,7 @@ Page({
         isActive: true,
         addTime: "2025-01-15",
         lastUsed: "2025-01-20",
+        translateX: 0, // 滑动距离
       },
       {
         id: 2,
@@ -18,6 +19,7 @@ Page({
         isActive: true,
         addTime: "2025-01-10",
         lastUsed: "2025-01-19",
+        translateX: 0,
       },
       {
         id: 3,
@@ -26,11 +28,16 @@ Page({
         isActive: true,
         addTime: "2025-01-05",
         lastUsed: "2025-01-18",
+        translateX: 0,
       },
     ],
 
     // 当前左滑的车辆ID
     currentSwipeId: null,
+    // 触摸相关数据
+    startX: 0,
+    startY: 0,
+    isSwipe: false,
   },
 
   onLoad() {
@@ -138,6 +145,7 @@ Page({
       isActive: true,
       addTime: this.getCurrentDate(),
       lastUsed: "从未使用",
+      translateX: 0, // 初始化滑动距离
     };
 
     const vehicleList = [...this.data.vehicleList, newVehicle];
@@ -191,9 +199,116 @@ Page({
     });
   },
 
+  // 触摸开始
+  onTouchStart(e) {
+    const touch = e.touches[0];
+    this.setData({
+      startX: touch.clientX,
+      startY: touch.clientY,
+      isSwipe: false,
+    });
+  },
+
+  // 触摸移动
+  onTouchMove(e) {
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - this.data.startX;
+    const deltaY = touch.clientY - this.data.startY;
+    const vehicleId = e.currentTarget.dataset.id;
+
+    // 判断是否为水平滑动
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 5) {
+      this.setData({
+        isSwipe: true,
+        currentSwipeId: vehicleId,
+      });
+
+      // 限制滑动距离，最大滑动160px（两个按钮的宽度）
+      // 添加阻尼效果，让滑动更自然
+      let translateX = deltaX;
+      if (deltaX < -160) {
+        // 超过最大距离时添加阻尼
+        translateX = -160 + (deltaX + 160) * 0.3;
+      } else if (deltaX > 0) {
+        // 向右滑动时添加阻尼
+        translateX = deltaX * 0.3;
+      }
+
+      // 更新对应车辆的translateX
+      const vehicleList = this.data.vehicleList.map((item) => {
+        if (item.id === vehicleId) {
+          return { ...item, translateX };
+        }
+        return item;
+      });
+
+      this.setData({ vehicleList });
+    }
+  },
+
+  // 触摸结束
+  onTouchEnd(e) {
+    const vehicleId = e.currentTarget.dataset.id;
+    const vehicle = this.data.vehicleList.find((item) => item.id === vehicleId);
+
+    if (this.data.isSwipe && vehicle) {
+      // 如果滑动距离超过一半，显示操作按钮
+      if (vehicle.translateX < -80) {
+        // 平滑滑动到完全展开位置
+        this.smoothSwipeTo(vehicleId, -160);
+        this.setData({
+          currentSwipeId: vehicleId,
+        });
+      } else {
+        // 否则回弹到原位置
+        this.smoothSwipeTo(vehicleId, 0);
+        this.setData({
+          currentSwipeId: null,
+        });
+      }
+    }
+
+    this.setData({
+      isSwipe: false,
+    });
+  },
+
+  // 平滑滑动到指定位置
+  smoothSwipeTo(vehicleId, targetX) {
+    const vehicleList = this.data.vehicleList.map((item) => {
+      if (item.id === vehicleId) {
+        return { ...item, translateX: targetX };
+      }
+      return item;
+    });
+
+    this.setData({
+      vehicleList,
+    });
+  },
+
+  // 重置滑动状态
+  resetSwipe(vehicleId) {
+    this.smoothSwipeTo(vehicleId, 0);
+    this.setData({
+      currentSwipeId: null,
+    });
+  },
+
   // 点击车辆卡片
   onVehicleClick(e) {
     const vehicleId = e.currentTarget.dataset.id;
+
+    // 如果当前有滑动状态，先重置
+    if (this.data.currentSwipeId && this.data.currentSwipeId !== vehicleId) {
+      this.resetSwipe(this.data.currentSwipeId);
+    }
+
+    // 如果当前车辆正在滑动，不执行点击事件
+    if (this.data.currentSwipeId === vehicleId) {
+      return;
+    }
+
     const vehicle = this.data.vehicleList.find((item) => item.id === vehicleId);
 
     if (vehicle) {
@@ -324,6 +439,7 @@ Page({
         return {
           ...item,
           plateNumber: newPlateNumber,
+          translateX: 0, // 重置滑动状态
         };
       }
       return item;

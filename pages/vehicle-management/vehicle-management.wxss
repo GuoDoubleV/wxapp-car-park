@@ -69,6 +69,8 @@
   margin-bottom: 20rpx;
   overflow: hidden;
   border-radius: 16rpx;
+  background-color: #fff;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
 .vehicle-card {
@@ -78,14 +80,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
   position: relative;
   z-index: 2;
-}
-
-.vehicle-item.swiping .vehicle-card {
-  transform: translateX(-160rpx);
+  /* 添加平滑过渡效果 */
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .vehicle-info {
@@ -142,6 +140,8 @@
   height: 100%;
   display: flex;
   z-index: 1;
+  border-radius: 0 16rpx 16rpx 0;
+  overflow: hidden;
 }
 
 .action-btn {
@@ -153,19 +153,43 @@
   color: #fff;
   font-size: 24rpx;
   font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+.action-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.action-btn:active::before {
+  opacity: 1;
 }
 
 .edit-btn {
-  background-color: #2196f3;
+  background-color: #007aff;
 }
 
 .delete-btn {
-  background-color: #f44336;
+  background-color: #ff3b30;
 }
 
 .action-text {
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  line-height: 1.2;
 }
 
 /* 空状态 */

@@ -14,7 +14,15 @@
       data-id="{{item.id}}"
     >
       <!-- 车辆卡片 -->
-      <view class="vehicle-card" bindtap="onVehicleClick" data-id="{{item.id}}">
+      <view 
+        class="vehicle-card" 
+        bindtap="onVehicleClick" 
+        data-id="{{item.id}}"
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+        style="transform: translateX({{item.translateX || 0}}px);"
+      >
         <view class="vehicle-info">
           <view class="plate-number">{{item.plateNumber}}</view>
         </view>

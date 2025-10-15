@@ -8,7 +8,7 @@
   <!-- 缴费记录列表 -->
   <view class="records-list">
     <view 
-      class="record-card {{selectedRecords.includes(item.id) ? 'selected' : ''}} {{item.isInvoiced ? 'invoiced' : ''}}"
+      class="record-card {{item.isSelected ? 'selected' : ''}} {{item.isInvoiced ? 'invoiced' : ''}}"
       wx:for="{{paymentRecords}}"
       wx:key="id"
       bindtap="onRecordSelect"
@@ -17,8 +17,8 @@
     >
       <!-- 选择框 -->
       <view class="select-checkbox">
-        <view class="checkbox {{selectedRecords.includes(parseInt(item.id)) ? 'checked' : ''}} {{item.isInvoiced ? 'disabled' : ''}}">
-          <text class="check-icon" wx:if="{{selectedRecords.includes(parseInt(item.id))}}">✓</text>
+        <view class="checkbox {{item.isSelected ? 'checked' : ''}} {{item.isInvoiced ? 'disabled' : ''}}">
+          <text class="check-icon" wx:if="{{item.isSelected}}">✓</text>
           <text class="disabled-icon" wx:if="{{item.isInvoiced}}">✕</text>
         </view>
       </view>

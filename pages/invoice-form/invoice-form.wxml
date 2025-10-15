@@ -1,17 +1,5 @@
 <!--pages/invoice-form/invoice-form.wxml-->
 <view class="invoice-form-page">
-  <!-- 页面标题 -->
-  <view class="page-header">
-    <view class="nav-bar">
-      <view class="nav-left" bindtap="goBack">
-        <view class="nav-btn">
-          <text class="nav-icon">←</text>
-        </view>
-      </view>
-      <view class="nav-title">填写开票信息</view>
-      <view class="nav-right"></view>
-    </view>
-  </view>
 
   <!-- 表单内容 -->
   <scroll-view class="form-content" scroll-y>
