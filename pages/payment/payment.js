@@ -118,12 +118,9 @@ Page({
   },
 
   onLoad(options) {
-    console.log("页面加载，参数:", options);
-
     // 接收从其他页面传递的参数
     if (options.plateNumber) {
       // 如果有车牌号，直接显示缴费页面
-      console.log("显示缴费页面，车牌号:", options.plateNumber);
       this.setData({
         "vehicle.plateNumber": options.plateNumber,
         pageMode: "payment",
@@ -135,14 +132,11 @@ Page({
       this.startPaymentCountdown();
     } else {
       // 没有车牌号，显示输入车牌页面
-      console.log("显示输入车牌页面");
       this.setData({
         pageMode: "input-plate",
       });
       this.initPlateInput();
     }
-
-    console.log("当前页面模式:", this.data.pageMode);
   },
 
   onUnload() {
@@ -277,27 +271,22 @@ Page({
   // 点击车牌输入框
   onPlateInputClick(e) {
     const index = e.currentTarget.dataset.index;
-    console.log("点击输入框，索引:", index);
-    console.log("设置前 showKeyboard:", this.data.showKeyboard);
 
     this.setData({
       currentInputIndex: index,
       showKeyboard: true,
     });
 
-    console.log("设置后 showKeyboard:", this.data.showKeyboard);
     this.updateKeyboardType(index);
   },
 
   // 更新键盘类型
   updateKeyboardType(index) {
-    console.log("更新键盘类型，索引:", index);
     let keyboardType = "province";
 
     if (index === 0) {
       keyboardType = "province"; // 第一位是省份
     } else if (index == 1) {
-      console.log("第二位是字母");
       keyboardType = "letter"; // 第二位是字母
     } else if (index >= 2 && index <= 5) {
       keyboardType = "number"; // 第3-6位是数字
@@ -306,8 +295,6 @@ Page({
     } else if (index == 7) {
       keyboardType = "letter"; // 第8位是字母（新能源）
     }
-
-    console.log("更新后的键盘类型:", keyboardType);
 
     this.setData({
       keyboardType: keyboardType,
@@ -455,18 +442,13 @@ Page({
 
   // 隐藏键盘
   hideKeyboard(e) {
-    console.log("隐藏键盘被调用");
-    console.log("e", e);
-
     if (
       e &&
       e.target &&
       e.target.dataset &&
       e.target.dataset.index !== undefined
     ) {
-      console.log("e.target.dataset.index", e.target.dataset.index);
       // 如果点击的是输入框，不隐藏键盘
-      console.log("点击的是输入框，不隐藏键盘");
       return;
     }
     // 检查是否点击了键盘区域
@@ -478,7 +460,7 @@ Page({
         e.target.className.includes("keyboard-row") ||
         e.target.className.includes("virtual-keyboard"))
     ) {
-      console.log("点击的是键盘区域，不隐藏键盘");
+      // 点击的是键盘区域，不隐藏键盘
       return;
     }
     this.setData({
