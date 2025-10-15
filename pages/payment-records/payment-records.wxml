@@ -1,28 +1,5 @@
 <!--pages/payment-records/payment-records.wxml-->
 <view class="payment-records-page">
-  <!-- 导航栏 -->
-  <view class="nav-bar">
-    <view class="nav-left">
-      <view class="nav-btn" bindtap="goBack">
-        <text class="nav-icon">←</text>
-      </view>
-      <view class="nav-btn" bindtap="goHome">
-        <text class="nav-icon">🏠</text>
-      </view>
-    </view>
-    <view class="nav-center">
-      <view class="nav-title">缴费记录</view>
-    </view>
-    <view class="nav-right">
-      <view class="nav-btn" bindtap="goToInvoiceRecords">
-        <text class="nav-icon">📄</text>
-      </view>
-      <view class="nav-btn" bindtap="showMoreOptions">
-        <text class="nav-icon">⋯</text>
-      </view>
-    </view>
-  </view>
-
   <!-- 已选择开票金额 -->
   <view class="selected-amount">
     已选择开票金额: ¥{{selectedAmount}}
@@ -95,5 +72,4 @@
     <view class="empty-text">暂无缴费记录</view>
     <view class="empty-desc">您的停车缴费记录将在这里显示</view>
   </view>
-
 </view>
